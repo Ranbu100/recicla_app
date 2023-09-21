@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'app_controller.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -42,14 +42,41 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
+      drawer: const Drawer(
         child: Column(
           children: [
             UserAccountsDrawerHeader(
               accountName: Text("Renan Gomes Mota"),
               accountEmail: Text("renan.mota2534@gmail.com"),
-            )
+              
+          ),
+          ListTile(
+            leading: Icon(Icons.home),
+            title: Text('Página Inicial'),
+            // onTap: () {
+            //   // Navegue para a página inicial aqui
+            //   Navigator.pop(context); // Fecha o Drawer
+            // },
+          ),
+          ListTile(
+            leading: Icon(Icons.settings),
+            title: Text('Configurações'),
+            // onTap: () {
+            //   // Navegue para a página de configurações aqui
+            //   Navigator.pop(context); // Fecha o Drawer
+            // },
+          ),
+          ListTile(
+            leading: Icon(Icons.info),
+            title: Text('Sobre'),
+            // onTap: () {
+            //   // Navegue para a página "Sobre" aqui
+            //   Navigator.pop(context); // Fecha o Drawer
+            // },
+          ),
+            
           ],
+
         ),
       ),
       appBar: AppBar(),
@@ -57,24 +84,25 @@ class HomePageState extends State<HomePage> {
         children: [
           Container(
             height: MediaQuery.of(context).size.height * 0.5,
-            child: Expanded(
-              child: PageView.builder(
-                controller: _pageController,
-                itemCount: 3,
-                onPageChanged: (int page) {
-                  setState(() {
-                    _currentPage = page;
-                  });
-                },
-                itemBuilder: (context, index) {
-                  return InformationPage(
-                    color: index == 0
-                        ? Colors.red
-                        : (index == 1 ? Colors.green : Colors.blue),
-                    text: 'Página ${index + 1}',
-                  );
-                },
-              ),
+            child: PageView.builder(
+              controller: _pageController,
+              itemCount: 3,
+              onPageChanged: (int page) {
+                setState(() {
+                  _currentPage = page;
+                });
+              },
+              itemBuilder: (context, index) {
+                return InformationPage(
+                  backgroundColor: index == 0
+                      ? Colors.green
+                      : (index == 1 ? Colors.green : Colors.green),
+                  text: 'Página ${index + 1}',
+                  imagePath: index == 0
+                      ?'assets/images/pag2.png'
+                      : (index == 1 ? 'assets/images/pag4.png' : 'assets/images/pag5.png'), // Substitua pelo caminho da sua imagem
+                );
+              },
             ),
           ),
           Row(
@@ -98,38 +126,31 @@ class HomePageState extends State<HomePage> {
 }
 
 class InformationPage extends StatelessWidget {
-  final Color color;
+  final Color backgroundColor;
   final String text;
+  final String imagePath;
 
   InformationPage({
-    required this.color,
+    required this.backgroundColor,
     required this.text,
+    required this.imagePath,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: color,
-      child: Center(
-        child: Text(
-          text,
-          style: TextStyle(fontSize: 24, color: Colors.white),
-        ),
+      color: backgroundColor,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(imagePath), // Renderiza a imagem
+          SizedBox(height: 20), // Espaço entre a imagem e o texto
+          Text(
+            text,
+            style: TextStyle(fontSize: 24, color: Colors.white),
+          ),
+        ],
       ),
     );
   }
 }
-
-class SwitchController extends StatelessWidget {
-  const SwitchController({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Switch(
-      value: false, // Troque para a lógica correta se desejar controlar o tema aqui
-      onChanged: (value) {
-        // Implemente a lógica para alternar o tema aqui
-      },
-    );
-  }
-} 

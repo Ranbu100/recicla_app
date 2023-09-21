@@ -67,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
               suffixIcon: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Icon(
-                  Icons.lock,
+                  Icons.lock_rounded,
                   color: Colors.grey
                       .withOpacity(0.5), // Define a cor semi-transparente
                 ),

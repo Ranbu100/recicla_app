@@ -16,7 +16,7 @@ class AppWidget extends StatelessWidget {
         animation: AppController.instance,
         builder: (context, child) => MaterialApp(
               theme: ThemeData(
-                primarySwatch: Colors.lightGreen,
+                primarySwatch: Colors.yellow,
                 brightness: AppController.instance.darkTheme
                     ? Brightness.dark
                     : Brightness.light,
@@ -24,7 +24,7 @@ class AppWidget extends StatelessWidget {
               routes: {
                 "/":(context) => StepForm(),
                 "/Home":(context) => LoginPage(),
-                "C":(context) => ResgistrationPage(),
+                "C":(context) => const RegistrationPage(),
                 "Home":(context) => HomePage()
               }
             ));

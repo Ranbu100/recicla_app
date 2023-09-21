@@ -14,9 +14,9 @@ class _StepFormState extends State<StepForm> {
   int _pagina = 0;
   bool _mostrarBotaoLogin = false;
   final List _listadepag = [
-    textos('assets/images/13.png', '', ''),
-    textos('assets/images/15.png', '', ''),
-    textos('assets/images/17.png', '', ''),
+    'assets/images/12.png',
+    'assets/images/13.png',
+    'assets/images/14.png',
   ];
 
   @override
@@ -47,12 +47,24 @@ class _StepFormState extends State<StepForm> {
         },
         child: PageView.builder(
           controller: _stepFormController,
-          physics: NeverScrollableScrollPhysics(),
+          physics: BouncingScrollPhysics(), // Adicione BouncingScrollPhysics
           itemBuilder: (BuildContext context, int index) {
-            return SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              child: _listadepag[index],
+            return Stack(
+              children: [
+                Image.asset(
+                  _listadepag[index],
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: double.infinity,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    // Adicione o texto e outros elementos aqui
+                  ],
+                ),
+              ],
             );
           },
           itemCount: _listadepag.length,
@@ -103,13 +115,13 @@ class _StepFormState extends State<StepForm> {
   void _pag(bool nextPage) {
     if (_pagina < 2 && nextPage) {
       _stepFormController.nextPage(
-        duration: Duration(milliseconds: 280),
-        curve: Curves.easeIn,
+        duration: Duration(milliseconds: 500), // Aumente a duração para uma transição mais suave
+        curve: Curves.easeInOut, // Use uma curva de transição suave
       );
     } else if (_pagina > 0 && !nextPage) {
       _stepFormController.previousPage(
-        duration: Duration(milliseconds: 280),
-        curve: Curves.easeIn,
+        duration: Duration(milliseconds: 500), // Aumente a duração para uma transição mais suave
+        curve: Curves.easeInOut, // Use uma curva de transição suave
       );
     }
   }
